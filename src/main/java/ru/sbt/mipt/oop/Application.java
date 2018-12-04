@@ -6,7 +6,7 @@ import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class Application {
 
-    private static SmartHomeLoader smartHomeLoader = new FileSmartHomeLoader();
+    private static SmartHomeLoader smartHomeLoader;
 
     public static void setSmartHomeLoader(SmartHomeLoader smartHomeLoader) {
         Application.smartHomeLoader = smartHomeLoader;
@@ -16,11 +16,11 @@ public class Application {
     public static void main(String... args) throws IOException {
 
         // считываем состояние дома из файла
-       setSmartHomeLoader(new FileSmartHomeLoader());
+        setSmartHomeLoader(new FileSmartHomeLoader());
 
-       SmartHome smartHome = smartHomeLoader.loadSmartHome();
+        SmartHome smartHome = smartHomeLoader.loadSmartHome();
 
-       runEventsCycle(smartHome);
+        runEventsCycle(smartHome);
 
 
     }
@@ -43,7 +43,7 @@ public class Application {
             }
             if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
                 // событие от двери
-                DoorEventProccesor.processDoorEvent(smartHome, event);
+                DoorEventProcessor.processDoorEvent(smartHome, event);
             }
             event = RandomSensorEventProvider.getNextSensorEvent();
         }

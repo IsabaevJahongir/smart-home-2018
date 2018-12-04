@@ -1,11 +1,10 @@
 package ru.sbt.mipt.oop;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SmartHome {
+public class SmartHome  {
     Collection<Room> rooms;
 
     public SmartHome() {
@@ -23,4 +22,8 @@ public class SmartHome {
     public Collection<Room> getRooms() {
         return rooms;
     }
+
+
+
 }
+

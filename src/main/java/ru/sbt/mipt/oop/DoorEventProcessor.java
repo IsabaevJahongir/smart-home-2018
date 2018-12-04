@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
-public class DoorEventProccesor {
+public class DoorEventProcessor {
 
     public static void processDoorEvent(SmartHome smartHome, SensorEvent event) {
         for (Room room : smartHome.getRooms()) {
@@ -17,13 +17,7 @@ public class DoorEventProccesor {
                         // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
                         // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
                         if (room.getName().equals("hall")) {
-                            for (Room homeRoom : smartHome.getRooms()) {
-                                for (Light light : homeRoom.getLights()) {
-                                    light.setOn(false);
-                                    SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                                    SensorCommandExecutor.sendCommand(command);
-                                }
-                            }
+                            HallDoorEventProcessor.processHallDoorEvent(smartHome, event);
                         }
                     }
                 }
