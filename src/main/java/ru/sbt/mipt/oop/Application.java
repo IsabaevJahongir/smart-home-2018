@@ -1,8 +1,8 @@
 package ru.sbt.mipt.oop;
 
 import java.io.IOException;
-
-import static ru.sbt.mipt.oop.SensorEventType.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Application {
 
@@ -20,8 +20,9 @@ public class Application {
 
         SmartHome smartHome = smartHomeLoader.loadSmartHome();
 
-        runEventsCycle(smartHome);
+        //      smartHome.printToSystem();
 
+        runEventsCycle(smartHome);
 
     }
 
@@ -30,24 +31,23 @@ public class Application {
 
         // Получаем событие
         SensorEvent event = RandomSensorEventProvider.getNextSensorEvent();
-
+        Collection<EventProcessor> eventProcessors = configureEventProcessors();
 
         // начинаем цикл обработки событий
         while (event != null) {
             System.out.println("Got event: " + event);
-
-            if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
-                // событие от источника света
-                LightEventProcessor.processLightEvent(smartHome, event);
-
-            }
-            if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
-                // событие от двери
-                DoorEventProcessor.processDoorEvent(smartHome, event);
+            for (EventProcessor eventProcessor : eventProcessors) {
+                eventProcessor.processEvent(smartHome, event);
             }
             event = RandomSensorEventProvider.getNextSensorEvent();
         }
     }
 
-
+    private static Collection<EventProcessor> configureEventProcessors() {
+        Collection<EventProcessor> eventProcessors = new ArrayList<>();
+        eventProcessors.add(new LightEventProcessor());
+        eventProcessors.add(new DoorEventProcessor());
+        eventProcessors.add(new HallDoorEventProcessor());
+        return eventProcessors;
+    }
 }

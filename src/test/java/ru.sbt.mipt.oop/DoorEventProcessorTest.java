@@ -27,12 +27,12 @@ public class DoorEventProcessorTest {
 
         if (getDoorById(smartHome, doorId1).getIsOpen()) {  // если дверь открыта, то закроем ее и проверим закралась ли
 
-            DoorEventProcessor.processDoorEvent(smartHome, event2);
+            new DoorEventProcessor().processEvent(smartHome, event2);
 
             assertTrue(!getDoorById(smartHome, doorId1).getIsOpen());
 
         } else {                    // если дверь закрыта, то откроем ее и посмотрим открылась ли
-            DoorEventProcessor.processDoorEvent(smartHome, event1);
+            new DoorEventProcessor().processEvent(smartHome, event1);
 
             assertTrue(getDoorById(smartHome, doorId1).getIsOpen());
         }

@@ -23,10 +23,10 @@ public class HallDoorsEventProcessorTest {
         SensorEvent event1 = new SensorEvent(SensorEventType.DOOR_CLOSED, doorId);
 
 
-        HallDoorEventProcessor.processHallDoorEvent(smartHome, event1);
+        new HallDoorEventProcessor().processEvent(smartHome, event1);
 
 
-        assertEquals( 0, numberOfOnLigths(smartHome));
+        assertEquals( 0, numberOfOnLigths( smartHome ) );
 
 
     }

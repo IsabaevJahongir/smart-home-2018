@@ -18,7 +18,7 @@ public class LightsEventProccessorTest {
 
         SmartHome smartHome = smartHomeLoader.loadSmartHome(); // загружаем умный дом
 
-        String lightId1 = "1";
+        String lightId1 = "4";
 
         SensorEvent event1 = new SensorEvent(SensorEventType.LIGHT_ON, lightId1);
 
@@ -29,11 +29,11 @@ public class LightsEventProccessorTest {
 
         if (getLighById(smartHome, lightId1).isOn()) {  // если лампа включена, то выключаем ее и проверяем выключилась ли
 
-           LightEventProcessor.processLightEvent(smartHome, event2);
+           new LightEventProcessor().processEvent(smartHome, event2);
             assertTrue(!getLighById(smartHome,lightId1).isOn());
 
         } else {  //если лампа выключена, то включаем ее и проверяем включена ли она
-            LightEventProcessor.processLightEvent(smartHome, event1);
+            new LightEventProcessor().processEvent(smartHome, event1);
             assertTrue(getLighById(smartHome,lightId1).isOn());
         }
 
