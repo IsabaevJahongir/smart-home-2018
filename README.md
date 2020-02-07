@@ -1,5 +1,7 @@
 # smart-home
 
+Проект в котором используется шаблоны проектирования и принцип SOLID
+
 Project Smart Home implements 'smart home''.
 The house has sensors which are connected to a central server and send events in case of lights on/off doors open/close.
 The system receives events of type SensorEvent.
